@@ -19,19 +19,14 @@ async def get_orders(
     user_id: int,
     session: Session = Depends(get_db_session)
 ):
-    try:
-        db_user = session.scalar(select(User).where(User.id == user_id))
-        if not db_user:
-            raise HTTPException(status_code=404, detail="User not found")
 
-        orders = session.execute(
+    db_user = session.scalar(select(User).where(User.id == user_id))
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    orders = session.execute(
             select(Order).where(Order.user_id == user_id)
         ).scalars().all()
 
-        return orders
+    return orders
 
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Unexpected error: {str(e)}"
-        )
