@@ -8,7 +8,7 @@ from ..database import Base
 
 
 class User(MappedAsDataclass, Base, unsafe_hash=True):
-    __tablename__ = "user"
+    __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(Integer, init=False, primary_key=True)
     name: Mapped[str | None] = mapped_column(String, nullable=True, default=None)

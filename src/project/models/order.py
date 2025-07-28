@@ -23,7 +23,7 @@ from sqlalchemy.orm import (
 )
 from ..database import Base
 from ..utils.enum import OrderStatus
-from ..models import User
+
 
 class Order(MappedAsDataclass, Base, unsafe_hash=True):
     __tablename__ = "orders"
